@@ -39,7 +39,7 @@ class Product extends Model
     }
 
     public function auctions(){
-        return $this->hasOne(Auction::class , 'id', 'product_id');
+        return $this->hasOne(Auction::class , 'product_id', 'id');
     }
 
 
