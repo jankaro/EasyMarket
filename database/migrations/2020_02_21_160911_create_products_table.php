@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->string('product_picture')->default('assets/product_default.png');
             $table->boolean('is_active')->default(true);
+            $table->boolean('is_auction')->default(false);
             $table->timestamps();
         });
     }
