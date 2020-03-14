@@ -69,3 +69,10 @@ Route::post('/profile/seller/add-product={id}', 'ProductsController@addProduct')
 Route::get('/profile/seller/manage-orders','ProductsController@showOrders')->name('orders_management');
 Route::post('/profile/seller/manage-orders/change','ProductsController@ChangeOrderStatus')->name('change_status');
 Route::post('/profile/seller/update-product', 'ProductsController@updateProduct');
+
+
+Route::get('/profile/seller/auctions', function (){
+
+    $products = Product::find(3);
+    return view('test', compact('products'));
+});
