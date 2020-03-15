@@ -36,6 +36,7 @@
 @else
 @section('content')
     <div class="row justify-content-center">
+        <div class="row">
         <div class="col-md-3">
             <label>Personal picture</label>
             <img src="{{asset('storage/'.$seller_info->personal_picture)}}" style="width: 200px; height: 200px;  margin-right: 20px;">
@@ -44,6 +45,7 @@
         <div class="col col-6">
             <label>Your national id</label>
             <img src="{{asset('storage/'.$seller_info->national_id)}}" style="width: 400px; height: 200px;  margin-right: 20px;">
+        </div>
         </div>
     </div>
     <div class="row justify-content-center mt-3">
