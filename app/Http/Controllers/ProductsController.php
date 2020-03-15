@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Auction;
 use App\Category;
 use App\Order;
 use App\Product;
@@ -17,6 +18,14 @@ class ProductsController extends Controller
         $categories = Category::all();
 
         return view('sellers.addProduct', compact('currentUser','categories'));
+    }
+
+    public function showProducts(){
+        $currentUser = User::find(Auth::id());
+        $products_info = $currentUser->products;
+        $categories = Category::all();
+
+        return view('sellers.myProducts',compact('currentUser', 'products_info','categories'));
     }
 
     public function addProduct(Request $request, $id){
@@ -66,5 +75,29 @@ class ProductsController extends Controller
         $update_order->save();
 
         return redirect()->route('orders_management');
+    }
+
+    public function openAuction(Request $request){
+        $product_id = $request->input('product_id');
+        $product = Product::find($product_id);
+        $user = User::find(Auth::id());
+
+        $auction = new Auction;
+        $auction->user_id = $user->id;
+        $auction->product_id = $product->id;
+        $auction->start_price = $request->input('start_price');
+        $auction->desired_price = $request->input('desired_price');
+        $auction->end_date = $request->input('end_date');
+
+        if ($product->is_auction == true){
+            return redirect()->back()->with('status', 'Your product is already in auction');
+        } elseif($auction->save()) {
+            $product->is_auction = true;
+            $product->save();
+            return redirect()->back()->with('status', 'Your product '.$product->product_title.' is open now for auction');
+        }else{
+            redirect()->back()->with('status', 'Something is wrong, Please try again or contact our support team');
+        }
+
     }
 }

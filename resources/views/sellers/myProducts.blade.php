@@ -7,6 +7,15 @@
 @endsection
 
 @section('content')
+    @if(session()->has('status'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{session()->get('status')}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
     <div class="table-responsive-sm">
         <table class="table table-striped table-sm">
             <thead>
@@ -53,11 +62,21 @@
                                     <span data-feather="edit"></span>
                                 </a>
                             </div>
+                            @if($product->is_auction == false)
                             <div class="col-1 d-flex">
-                                <a class="d-flex align-items-center text-muted" href="{{route('seller_auth')}}">
-                                    <span data-feather="delete"></span>
+                                <a class="d-flex align-items-center text-muted" data-toggle="modal"
+                                   data-target="#addAuctionModal"
+                                   data-product_id="{{$product->id}}" href="">
+                                    <span data-feather="plus-circle"></span>
                                 </a>
                             </div>
+                                @else
+                                <div class="col-1 d-flex">
+                                    <a class="d-flex align-items-center text-muted" data-toggle="modal" href="">
+                                        <span data-feather="link"></span>
+                                    </a>
+                                </div>
+                                @endif
                         </div>
                     </td>
                 </tr>
@@ -86,6 +105,14 @@
             modal.find('#product_title').val(product_title)
             modal.find('#price').val(product_price)
             modal.find('#description').text(product_description)
+        })
+
+        $('#addAuctionModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var product_id = button.data('product_id')
+
+            var modal = $(this)
+            modal.find('#product_id').val(product_id)
         })
     </script>
 
@@ -165,4 +192,42 @@
         </div>
     </div>
 </div>
+</div>
+
+
+<!-- Add auction modal -->
+<div class="modal fade" id="addAuctionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Open auction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/profile/seller/open-auction">
+                    @csrf
+                    <input type="hidden" id="product_id" name="product_id">
+                    <div class="form-group">
+                        <label>Starting Price:</label>
+                        <input class="form-control mb-3" id="start_price" name="start_price" type="text" >
+                        <label>Buy Now Price:</label>
+                        <input class="form-control mb-3" id="desired_price" name="desired_price" type="text">
+                        <label>Auction End-Date:</label>
+                        <input class="form-control mb-3" id="end_date" name="end_date" type="datetime-local">
+                        <label class="form-check-label text-muted">* All prices must be in Egyptian Pound</label>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" required>
+                            <label class="form-check-label"  for="exampleCheck1">I, Agree that once a product is open for auction it cannot be cancelled.</label>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Open Auction</button>
+            </div>
+            </form>
+        </div>
+    </div>
 </div>

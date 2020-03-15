@@ -16,7 +16,7 @@ class CreateAuctionsTable extends Migration
         Schema::create('auctions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->integer('product_id');
+            $table->integer('product_id')->unique();
             $table->integer('start_price');
             $table->integer('desired_price');
             $table->integer('current_price')->nullable();

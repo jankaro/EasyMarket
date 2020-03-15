@@ -1,2 +1,2 @@
 <?php
-@dd($products->auctions->bids)
+@dd($products)

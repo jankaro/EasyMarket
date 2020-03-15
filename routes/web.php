@@ -55,14 +55,7 @@ Route::get('/profile/seller/auth', function (){
 Route::post('/profile/seller/auth/submit={id}', 'UserController@sellerAuth');
 
 // seller posted products
-Route::get('/profile/seller/products', function (){
-
-    $currentUser = User::find(Auth::id());
-    $products_info = $currentUser->products;
-    $categories = Category::all();
-
-    return view('sellers.myProducts',compact('currentUser', 'products_info','categories'));
-})->name('seller_products');
+Route::get('/profile/seller/products', 'ProductsController@showProducts')->name('seller_products');
 
 Route::get('/profile/seller/add-product','ProductsController@index')->name('products_index');
 Route::post('/profile/seller/add-product={id}', 'ProductsController@addProduct');
@@ -76,3 +69,5 @@ Route::get('/profile/seller/auctions', function (){
     $products = Product::find(3);
     return view('test', compact('products'));
 });
+
+Route::post('/profile/seller/open-auction', 'ProductsController@openAuction');
