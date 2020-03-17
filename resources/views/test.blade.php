@@ -1,2 +1,2 @@
 <?php
-@dd($products)
+@dd($products->rate($products->id))

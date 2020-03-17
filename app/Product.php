@@ -31,7 +31,7 @@ class Product extends Model
     }
 
     public function rates(){
-        return $this->hasMany(Rate::class);
+        return $this->hasMany(Rate::class , 'product_id' , 'id');
     }
 
     public function orders(){
@@ -40,6 +40,21 @@ class Product extends Model
 
     public function auctions(){
         return $this->hasOne(Auction::class , 'product_id', 'id');
+    }
+
+    public function rate($product_id){
+        $rates= Product::find($product_id)->rates;
+        $rates_sum=0;
+        $rates_count=0;
+        $avg_rate=0;
+        foreach ($rates as $rate){
+            $rates_sum += $rate->rate_value;
+            $rates_count++;
+        }
+
+        $avg_rate= $rates_sum / $rates_count ;
+        return round($avg_rate, 1);
+
     }
 
 

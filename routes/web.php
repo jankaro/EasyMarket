@@ -66,7 +66,7 @@ Route::post('/profile/seller/update-product', 'ProductsController@updateProduct'
 
 Route::get('/profile/seller/auctions', function (){
 
-    $products = Product::find(3);
+    $products = Product::find(2);
     return view('test', compact('products'));
 });
 
