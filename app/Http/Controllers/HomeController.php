@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\User;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +30,7 @@ class HomeController extends Controller
     {
         $users = User::all();
 
-        return view('home', ['users'=> $users]);
+        return view('homeTest', ['users'=> $users]);
     }
 
     public function store(Request $request)
@@ -43,6 +44,12 @@ class HomeController extends Controller
 
 
         return redirect()->action('HomeController@index');
+    }
+
+    public function byCategory($id){
+        $category= Category::find($id);
+        $categories = Category::all();
+        return view('category' , compact('category' , 'categories'));
     }
 
 }

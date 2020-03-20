@@ -31,15 +31,17 @@ class ProductsController extends Controller
     public function addProduct(Request $request, $id){
         $currentUser = User::find($id);
         $product = new Product;
-        $product_picture_path = $request->file('product_picture')->store('assets/products_pictures', 'public');
+
 
         $product->user_id= $currentUser->id;
         $product->product_title = $request->input('product_title');
         $product->description = $request->input('description');
         $product->price = $request->input('price');
         $product->category_id= $request->input('category_id');
-        $product->product_picture = $product_picture_path;
-
+        if ($request->hasFile('product_picture')) {
+            $product_picture_path = $request->file('product_picture')->store('assets/products_pictures', 'public');
+            $product->product_picture = $product_picture_path;
+        }
         $product->save();
 
         return redirect()->route('seller_products');

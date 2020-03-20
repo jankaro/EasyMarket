@@ -51,9 +51,12 @@ class Product extends Model
             $rates_sum += $rate->rate_value;
             $rates_count++;
         }
-
-        $avg_rate= $rates_sum / $rates_count ;
-        return round($avg_rate, 1);
+        if ($rates_sum == 0 ){
+            return 0;
+        }else {
+            $avg_rate = $rates_sum / $rates_count;
+            return round($avg_rate, 1);
+        }
 
     }
 

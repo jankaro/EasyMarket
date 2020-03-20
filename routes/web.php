@@ -66,8 +66,10 @@ Route::post('/profile/seller/update-product', 'ProductsController@updateProduct'
 
 Route::get('/profile/seller/auctions', function (){
 
-    $products = Product::find(2);
-    return view('test', compact('products'));
+    $products = Product::where('is_active', true)->get();
+    $categories = Category::all();
+    return view('home', compact('products','categories'));
 });
 
 Route::post('/profile/seller/open-auction', 'ProductsController@openAuction');
+Route::get('/category={id}', 'HomeController@byCategory');

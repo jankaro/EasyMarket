@@ -1,63 +1,82 @@
-@extends('layouts.app')
+@extends('layouts.homeLayouts.main')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+@section('content1')
+    <header class="section-heading">
+        <a href="#" class="btn btn-outline-primary float-right">See all</a>
+        <h3 class="section-title">Products for Auction</h3>
+    </header><!-- sect-heading -->
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
-                    You are logged in!
-                </div>
+    <div class="row">
+
+
+        @foreach($products->where('is_auction', true) as $product)
+        <div class="col-md-3">
+
+            <div href="#" class="card card-product-grid">
+
+                <a href="#" class="img-wrap"> <img src="{{asset('storage/'.$product->product_picture)}}"> </a>
+                <figcaption class="info-wrap">
+                    <a href="#" class="title">{{$product->product_title}}</a>
+                    <div class="rating-wrap">
+                        <ul class="rating-stars">
+                            <li style="width:80%" class="stars-active">
+                                @for($i=0 ;$i < round($product->rate($product->id), 0); $i++)
+                                    <i class="fa fa-star"></i>
+                                @endfor
+                            </li>
+                            <li>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <small class="label-rating text-muted">{{$product->rate($product->id)}}/5</small>
+                    </div>
+
+                    <div class="price mt-1">starting from: {{$product->auctions->start_price}} L.E</div> <!-- price-wrap.// -->
+                </figcaption>
             </div>
-        </div>
-    </div>
+        </div> <!-- col.// -->
+            @endforeach
+    </div> <!-- row.// -->
 
-    <div class="row mt-5 justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Users</div>
+    @endsection
 
-                <div class="card-body">
-                    <dl class="row">
-                        @foreach($users as $user)
-                        <dt class="col-sm-3">{{$user->name}}</dt>
-                        @foreach($user->products as $product)
-                        <dd class="col-sm-9">{{$product->product_title}}</dd>
-                            @endforeach
-                        @endforeach
-                </div>
+@section('content2')
+    <header class="section-heading">
+        <a href="#" class="btn btn-outline-primary float-right">See all</a>
+        <h3 class="section-title">Popular products</h3>
+    </header><!-- sect-heading -->
+
+
+    <div class="row">
+        @foreach($products as $product)
+        <div class="col-md-3">
+            <div href="#" class="card card-product-grid">
+                <a href="#" class="img-wrap"> <img src="{{asset('storage/'.$product->product_picture)}}"> </a>
+                <figcaption class="info-wrap">
+                    <a href="#" class="title">{{$product->product_title}}</a>
+                    <div class="rating-wrap">
+                        <ul class="rating-stars">
+                            <li style="width:80%" class="stars-active">
+                                @for($i=0 ;$i < round($product->rate($product->id), 0); $i++)
+                                    <i class="fa fa-star"></i>
+                                @endfor
+                            </li>
+                            <li>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <small class="label-rating text-muted">{{$product->rate($product->id)}}/5</small>
+                    </div>
+                    <div class="price mt-1">L.E {{$product->price}}</div> <!-- price-wrap.// -->
+                </figcaption>
             </div>
-        </div>
-    </div>
+        </div> <!-- col.// -->
+        @endforeach
+    </div> <!-- row.// -->
 
-    <div class="row mt-5 justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Add product</div>
-
-                <div class="card-body">
-
-
-                        <form method="POST" action="/store">
-                            @csrf
-                            <input type="text" name="product_title" class="form-control m-2" placeholder="Product title">
-                            <input type="text"  name="price" class="form-control m-2" placeholder="Product Price">
-                            <input type="text"  name="description" class="form-control m-2" placeholder="Product description">
-                            <button class="btn btn-primary" type="submit">Add Product</button>
-                        </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
 @endsection
