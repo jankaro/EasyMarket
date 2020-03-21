@@ -75,8 +75,19 @@
                             <div class="text">
                                 <span class="text-muted">Welcome!</span>
                                 <div>
-                                    <a href="#">Sign in</a> |
-                                    <a href="#"> Register</a>
+                                    @guest
+                                    <a href="{{ route('login') }}">{{ __('Login') }} | </a>
+                                        @if (Route::has('register'))
+                                             <a href="{{ route('register') }}"> {{ __('Register') }}</a>
+                                        @endif
+                                    @else
+                                        <a href="{{ route('profile') }}">{{ Auth::user()->name }}  | </a>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"> {{ __('Logout') }}</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                        @endguest
                                 </div>
                             </div>
                         </div>
@@ -99,7 +110,7 @@
         <div class="collapse navbar-collapse" id="main_nav">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="/profile/seller/auctions">Home</a>
+                    <a class="nav-link" href="{{route('mainPage')}}">Home</a>
                 </li>
                 @foreach($categories as $category)
                 <li class="nav-item dropdown">

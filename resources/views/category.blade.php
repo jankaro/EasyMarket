@@ -35,7 +35,7 @@
                                     <i class="fa fa-star"></i>
                                 </li>
                             </ul>
-                            <small class="label-rating text-muted">{{$product->rate($product->id)}}</small>
+                            <small class="label-rating text-muted">{{$product->rate($product->id)}}/5</small>
                         </div>
 
                         @if($product->is_auction)

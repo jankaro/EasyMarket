@@ -33,8 +33,11 @@
                         </ul>
                         <small class="label-rating text-muted">{{$product->rate($product->id)}}/5</small>
                     </div>
-
-                    <div class="price mt-1">starting from: {{$product->auctions->start_price}} L.E</div> <!-- price-wrap.// -->
+                    @if($product->is_auction)
+                        <div class="price mt-1">starting from: {{$product->auctions->start_price}} L.E</div> <!-- price-wrap.// -->
+                    @else
+                        <div class="price mt-1">Price: {{$product->price}} L.E</div> <!-- price-wrap.// -->
+                    @endif
                 </figcaption>
             </div>
         </div> <!-- col.// -->
@@ -72,7 +75,11 @@
                         </ul>
                         <small class="label-rating text-muted">{{$product->rate($product->id)}}/5</small>
                     </div>
-                    <div class="price mt-1">L.E {{$product->price}}</div> <!-- price-wrap.// -->
+                    @if($product->is_auction)
+                        <div class="price mt-1">starting from: {{$product->auctions->start_price}} L.E</div> <!-- price-wrap.// -->
+                    @else
+                        <div class="price mt-1">Price: {{$product->price}} L.E</div> <!-- price-wrap.// -->
+                    @endif
                 </figcaption>
             </div>
         </div> <!-- col.// -->

@@ -18,8 +18,10 @@ use App\Product;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('pages.home');
-});
+    $products = Product::where('is_active', true)->get();
+    $categories = Category::all();
+    return view('home', compact('products','categories'));
+})->name('mainPage');
 
 Route::get('/product', function () {
     return view('pages.productView');
