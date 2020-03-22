@@ -75,3 +75,4 @@ Route::get('/profile/seller/auctions', function (){
 
 Route::post('/profile/seller/open-auction', 'ProductsController@openAuction');
 Route::get('/category={id}', 'HomeController@byCategory');
+Route::get('/product={id}', 'HomeController@showProduct');

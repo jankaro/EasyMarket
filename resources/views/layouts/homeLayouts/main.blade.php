@@ -122,30 +122,7 @@
     </div> <!-- container .// -->
 </nav>
 
-<!-- ========================= SECTION MAIN ========================= -->
-<section class="section-main bg padding-y">
-    <div class="container">
-
-        <div class="row">
-            <aside class="col-md-3">
-                <nav class="card">
-                    <ul class="menu-category">
-                        @foreach($categories as $category)
-                        <li><a href="#">{{$category->title}}</a></li>
-                            @endforeach
-                    </ul>
-                </nav>
-            </aside> <!-- col.// -->
-            <div class="col-md-9">
-                <article class="banner-wrap">
-                    <img src="https://via.placeholder.com/1000x300" class="w-100 rounded">
-                </article>
-            </div> <!-- col.// -->
-        </div> <!-- row.// -->
-    </div> <!-- container //  -->
-</section>
-<!-- ========================= SECTION MAIN END// ========================= -->
-
+@yield('main_section')
 <!-- ========================= SECTION  ========================= -->
 <section class="section-name padding-y-sm">
     <div class="container">

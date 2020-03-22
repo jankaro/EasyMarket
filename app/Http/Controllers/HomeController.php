@@ -52,4 +52,11 @@ class HomeController extends Controller
         return view('category' , compact('category' , 'categories'));
     }
 
+    public function showProduct($id){
+        $product = Product::find($id);
+        $categories = Category::all();
+        return view('product', compact('product','categories'));
+    }
+
+
 }
