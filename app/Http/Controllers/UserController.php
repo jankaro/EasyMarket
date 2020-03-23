@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rate;
 use App\Seller;
 use App\User;
 use App\Payment;
@@ -177,4 +178,14 @@ class UserController extends Controller
         $payment_info->save();
     }
 
+    public function submitReview(Request $request, $product_id){
+        $review = new Rate;
+
+        $review->user_id = Auth::id();
+        $review->product_id = $product_id;
+        $review->rate_value= $request->input('value');
+        $review->feedback= $request->input('feedback');
+        $review->save();
+        return redirect()->back();
+    }
 }

@@ -48,8 +48,8 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-2 col-4">
-                    <a href="http://bootstrap-ecommerce.com" class="brand-wrap">
-                        <img class="logo" src="images/logo.png">
+                    <a href="{{route('mainPage')}}" class="brand-wrap">
+                        <img class="logo" src="{{asset('storage/assets/em-logo.png')}}">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-sm-12">
@@ -91,7 +91,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div> <!-- widgets-wrap.// -->
                 </div> <!-- col.// -->
             </div> <!-- row.// -->
