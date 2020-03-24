@@ -238,7 +238,12 @@
                         <aside class="col-sm-3">
                             <div class="info-aside">
                                 <div class="price-wrap">
+                                    @if($product->is_auction)
+                                        <del class="price-old">Starting from:</del>
+                                        <span class="price h5">{{$product->auctions->start_price}} L.E</span>
+                                        @else
                                     <span class="price h5">{{$product->price}} L.E</span>
+                                    @endif
                                     <del class="price-old"></del>
                                 </div> <!-- info-price-detail // -->
                                 <p class="text-success">Free shipping</p>

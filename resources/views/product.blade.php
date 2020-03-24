@@ -21,17 +21,38 @@
                         <p>{{$product->description}}</p>
 
                         <div class="row mt-3 align-items-center">
-                            <div class="col-6">
+                            <div class="col-12">
                                 @if($product->is_auction)
                                     <ul class="list-bullet">
                                         <li><strong>Buy now price:</strong> {{$product->auctions->desired_price}} L.E</li>
                                         <li><strong>Auction starting price:</strong> {{$product->auctions->start_price}} L.E</li>
+                                        <li><strong>Accepting bids till:</strong> {{$product->auctions->end_date}}</li>
                                     </ul>
                                     @else
                                 <span class="price h4">{{$product->price}} L.E</span>
                                     @endif
                             </div> <!-- col.// -->
-                            <div class="table-responsive mt-5">
+                                <div class="col-7">
+                                    <form method="POST" action="/product/auction={{$product->auctions->id}}">
+                                        @csrf
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Enter bid amount ex. 500" class="form-control" name="value">
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Place bid</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            <div class="col col-12">
+                                @if(session()->has('message'))
+                                <div class="alert alert-{{session()->get('type')}}" role="alert">
+                                    {{session()->get('message')}}
+                                </div>
+                                @endif
+
+                            <div class="table-responsive mt-2">
                                 <table class="table table-hover">
                                     <tbody>
                                     @foreach($product->auctions->bids->sortByDesc('created_at')->take(5) as $bid)
@@ -50,7 +71,7 @@
                                     </tbody>
                                 </table>
                             </div>
-
+                            </div>
                         </div> <!-- row.// -->
 
                     </article> <!-- product-info-aside .// -->

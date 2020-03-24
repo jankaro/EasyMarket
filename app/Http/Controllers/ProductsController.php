@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Auction;
+use App\Bid;
 use App\Category;
 use App\Order;
 use App\Product;
@@ -100,6 +101,30 @@ class ProductsController extends Controller
         }else{
             redirect()->back()->with('status', 'Something is wrong, Please try again or contact our support team');
         }
+
+    }
+
+    public function placeBid(Request $request, $auction_id){
+        $auction= Auction::find($auction_id);
+        $value = $request->input('value');
+        if ( $value < $auction->start_price && $value <= $auction->current_price ){
+            return redirect()->back()->with(['type'=>'danger', 'message'=>'You cannot bid with this amount as its less than the current price']);
+        } elseif (User::find(Auth::id())->payments != null){
+
+            $bid = new Bid;
+            $bid->user_id= Auth::id();
+            $bid->auction_id = $auction_id;
+            $bid->value=$value;
+           if ($bid->save()){
+              $auction->current_price = $value;
+              $auction->save();
+           }
+            return redirect()->back();
+
+        }else {
+             return redirect()->back()->with(['type'=>'info', 'message'=>'You have to add payment method from your profile first!']);
+        }
+
 
     }
 }
