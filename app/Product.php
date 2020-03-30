@@ -42,6 +42,10 @@ class Product extends Model
         return $this->hasOne(Auction::class , 'product_id', 'id');
     }
 
+    public function carts(){
+        return $this->hasMany(Cart::class , 'product_id', 'id');
+    }
+
     public function rate($product_id){
         $rates= Product::find($product_id)->rates;
         $rates_sum=0;

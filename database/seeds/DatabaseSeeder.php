@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AuctionsTableSeeder::class);
         $this->call(BidsTableSeeder::class);
         $this->call(RatesTableSeeder::class);
+        $this->call(CartSeeder::class);
 
 
     }

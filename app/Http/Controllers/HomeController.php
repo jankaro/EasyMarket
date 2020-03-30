@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Product;
 use App\User;
 use App\Category;
@@ -55,6 +56,7 @@ class HomeController extends Controller
     public function showProduct($id){
         $product = Product::find($id);
         $categories = Category::all();
+
         return view('product', compact('product','categories'));
     }
 

@@ -32,6 +32,7 @@
                                 <span class="price h4">{{$product->price}} L.E</span>
                                     @endif
                             </div> <!-- col.// -->
+                            @auth
                                 <div class="col-7">
                                     <form method="POST" action="/product/auction={{$product->auctions->id}}">
                                         @csrf
@@ -45,6 +46,7 @@
                                         </div>
                                     </form>
                                 </div>
+                            @endauth
                             <div class="col col-12">
                                 @if(session()->has('message'))
                                 <div class="alert alert-{{session()->get('type')}}" role="alert">
@@ -81,7 +83,6 @@
         @endsection
     @else
 @section('content1')
-
     <div class="card">
         <div class="row no-gutters">
             <aside class="col-sm-6 border-right">
@@ -126,8 +127,10 @@
             <a href="#" class="btn btn-outline-success float-right" data-toggle="modal"
                data-target="#writeReviewModal" >Write a review</a>
         @else
+            @auth
         <a href="#" class="btn btn-outline-success float-right" data-toggle="modal"
            data-target="#writeReviewModal" >Write a review</a>
+            @endauth
             <a href="#" class="btn btn-outline-primary mr-3 float-right" data-toggle="modal"
                data-target="#reviewsModal" >See all reviews</a>
             <h3 class="section-title">Top reviews</h3>
