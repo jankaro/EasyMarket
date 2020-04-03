@@ -17,6 +17,9 @@
                         <div class="rating-wrap mb-3">
                             <span class="badge badge-warning"> <i class="fa fa-star"></i>{{$product->rate($product->id)}}</span>
                             <small class="text-muted ml-2">{{$product->rates->count()}} reviews</small>
+                            <span class="badge badge-light">
+                                <i class="fa fa-store-alt"></i> </span>
+                              {{$product->users->name}}
                         </div>
                         <p>{{$product->description}}</p>
 
@@ -98,6 +101,9 @@
                     <div class="rating-wrap mb-3">
                         <span class="badge badge-warning"> <i class="fa fa-star"></i>{{$product->rate($product->id)}}</span>
                         <small class="text-muted ml-2">{{$product->rates->count()}} reviews</small>
+                        <span class="badge badge-light">
+                                <i class="fa fa-store-alt"></i> </span>
+                        {{$product->users->name}}
                     </div>
                     <p>{{$product->description}}</p>
 
@@ -106,10 +112,14 @@
                             <span class="price h4">{{$product->price}} L.E</span>
                         </div> <!-- col.// -->
                         <div class="col text-right">
-                            <a href="#" class="btn  btn-primary"> Add to cart <i class="fas fa-shopping-cart"></i>  </a>
+                            <form id="addToCart" action="/cart/add-product={{$product->id}}" method="POST">
+                                @csrf
+                            <a onclick="document.getElementById('addToCart').submit();" class="btn  btn-primary text-white"> Add to cart <i class="fas fa-shopping-cart"></i>  </a>
                             <a href="#" class="btn  btn-light"> <i class="fas fa-heart"></i>  </a>
                             <a href="#" class="btn  btn-light"> <i class="fa fa-folder-plus"></i>  </a>
+                            </form>
                         </div> <!-- col.// -->
+
                     </div> <!-- row.// -->
 
                 </article> <!-- product-info-aside .// -->

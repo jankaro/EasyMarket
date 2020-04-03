@@ -78,3 +78,7 @@ Route::get('/category={id}', 'HomeController@byCategory');
 Route::get('/product={id}', 'HomeController@showProduct');
 Route::post('/product/review={id}', 'UserController@SubmitReview');
 Route::post('/product/auction={auction_id}', 'ProductsController@placeBid');
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::post('/cart={id}', 'CartController@destroy');
+Route::post('/cart/add-product={id}', 'CartController@create');
+Route::post('/cart/checkout', 'CartController@store');

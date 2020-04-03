@@ -66,10 +66,14 @@
                 </div> <!-- col.// -->
                 <div class="col-lg-4 col-sm-6 col-12">
                     <div class="widgets-wrap float-md-right">
+                        @auth
                         <div class="widget-header  mr-3">
-                            <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></a>
-                            <span class="badge badge-pill badge-danger notify">0</span>
+                            <a href="{{route('cart')}}" class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></a>
+                            @if(Auth::user()->carts->where('purchased',false)->first() != null)
+                            <span class="badge badge-pill badge-danger notify">{{Auth::user()->carts->where('purchased',false)->count()}}</span>
+                                @endif
                         </div>
+                        @endauth
                         <div class="widget-header icontext">
                             <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
                             <div class="text">

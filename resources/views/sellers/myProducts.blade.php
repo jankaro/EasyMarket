@@ -72,7 +72,7 @@
                             </div>
                                 @else
                                 <div class="col-1 d-flex">
-                                    <a class="d-flex align-items-center text-muted" data-toggle="modal" href="">
+                                    <a class="d-flex align-items-center text-muted"  target="_blank" href="/product={{$product->id}}">
                                         <span data-feather="link"></span>
                                     </a>
                                 </div>
