@@ -82,3 +82,10 @@ Route::get('/cart', 'CartController@index')->name('cart');
 Route::post('/cart={id}', 'CartController@destroy');
 Route::post('/cart/add-product={id}', 'CartController@create');
 Route::post('/cart/checkout', 'CartController@store');
+
+Route::get('/dev', function (){
+
+    $products= \App\Recommender::similarProducts(5);
+    return view('test', compact('products'));
+});
+
