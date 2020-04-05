@@ -8,8 +8,8 @@ use http\Env\Request;
 
 class Recommender
 {
-    public static function similarProducts($product_id){
-        $products        = Product::all()->toArray();
+    public static function similarProducts($products_array, $product_id){
+        $products        = $products_array;
         $selectedId      = $product_id;
         $selectedProduct = $products[$product_id-1];
 

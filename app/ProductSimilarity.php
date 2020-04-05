@@ -78,12 +78,10 @@ class ProductSimilarity
 
     protected function calculateSimilarityScore($productA, $productB)
     {
-        $a = explode(' ', Product::find($productA['id'])->get('description'));
-        $b = explode(' ', Product::find($productB['id'])->get('description'));
-        $productAFeatures = implode('', $a);
-        $productBFeatures = implode('', $b);
+        $productAFeatures = implode('', get_object_vars((object) $productA['description']));
+        $productBFeatures = implode('', get_object_vars( (object) $productB['description']));
         return  array_sum([
-                (Similarity::hamming($productAFeatures, $productBFeatures,false) * $this->featureWeight),
+                (Similarity::hamming($productAFeatures, $productBFeatures,true) * $this->featureWeight),
                 (Similarity::euclidean(
                         Similarity::minMaxNorm([$productA['price']], 0, $this->priceHighRange),
                         Similarity::minMaxNorm([$productB['price']], 0, $this->priceHighRange)

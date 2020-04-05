@@ -10,12 +10,17 @@ class Similarity
     {
         $a        = str_pad($string1, strlen($string2) - strlen($string1), ' ');
         $b        = str_pad($string2, strlen($string1) - strlen($string2), ' ');
-        $distance = count(array_diff_assoc(str_split($a), str_split($b)));
+        $array1= explode(' ', $a);
+        $array2= explode(' ', $b);
+        $intersection = array_unique(array_intersect($array1, $array2));
+        $union        = array_unique(array_merge($array1, $array2));
 
+        $distance = count(array_diff_assoc($array1, $array2));
         if ($returnDistance) {
-            return $distance;
+
+            return count($intersection) / count($union) ;
         }
-        return (strlen($a) - $distance) / strlen($a);
+        return (count($array1) - $distance) / count($array1);
     }
 
 
