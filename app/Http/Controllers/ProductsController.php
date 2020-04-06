@@ -109,7 +109,7 @@ class ProductsController extends Controller
     public function placeBid(Request $request, $auction_id){
         $auction= Auction::find($auction_id);
         $value = $request->input('value');
-        if ( $value < $auction->start_price && $value <= $auction->current_price ){
+        if ( !($value >= $auction->start_price && $value > $auction->current_price) ){
             return redirect()->back()->with(['type'=>'danger', 'message'=>'You cannot bid with this amount as its less than the current price']);
         } elseif (User::find(Auth::id())->payments != null){
 
