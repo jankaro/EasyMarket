@@ -10,15 +10,31 @@ class Similarity
     {
         $a        = str_pad($string1, strlen($string2) - strlen($string1), ' ');
         $b        = str_pad($string2, strlen($string1) - strlen($string2), ' ');
-        $array1= explode(' ', $a);
-        $array2= explode(' ', $b);
-        $intersection = array_unique(array_intersect($array1, $array2));
-        $union        = array_unique(array_merge($array1, $array2));
+        $str1= explode(' ', $a);
+        $str2= explode(' ', $b);
 
-        $distance = count(array_diff_assoc($array1, $array2));
+
+        $distance = count(array_diff_assoc($str1, $str2));
+
+        if (count($str1) > count($str2)){
+            $i= count(array_diff_assoc($str1, $str2));
+            while(count($str1) >= count($str2)){
+                $str2[]= rand();
+
+            }
+        }
+
         if ($returnDistance) {
 
-            return count($intersection) / count($union) ;
+            $i = 0; $count = 0;
+            while (isset($str1[$i]) != '')
+            {
+                if ($str1[$i] == $str2[$i])
+                    $count++;
+                $i++;
+            }
+
+            return  ($count/$i);
         }
         return (count($array1) - $distance) / count($array1);
     }
