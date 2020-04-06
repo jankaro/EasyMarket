@@ -23,6 +23,8 @@
                         </div>
                         <p>{{$product->description}}</p>
 
+                        <hr class="divider">
+
                         <div class="row mt-3 align-items-center">
                             <div class="col-12">
                                 @if($product->is_auction)
@@ -60,7 +62,7 @@
                             <div class="table-responsive mt-2">
                                 <table class="table table-hover">
                                     <tbody>
-                                    @foreach($product->auctions->bids->sortByDesc('created_at')->take(5) as $bid)
+                                    @foreach($product->auctions->bids->sortByDesc('created_at')->take(3) as $bid)
                                     <tr>
                                         <td width="65">
                                             <img src="{{asset('storage/'.$bid->users->profile_picture)}}" class="img-xs border">
@@ -106,6 +108,8 @@
                         {{$product->users->name}}
                     </div>
                     <p>{{$product->description}}</p>
+
+                    <hr class="divider">
 
                     <div class="row mt-3 align-items-center">
                         <div class="col-4">
@@ -164,6 +168,25 @@
         @endforeach
     </div>
 
+    <hr class="divider">
+    <h4 class="section-title">You may also like ...</h4>
+    <div class="card card-body">
+        <div class="row">
+            @foreach(\App\Recommender::similarProducts(\App\Product::all()->toArray(), $product->id, 4) as $similarProduct)
+            <div class="col-md-3">
+                <figure class="itemside mb-2">
+                    <div class="aside"><img src="{{asset('storage/'.$similarProduct['product_picture'])}}" class="border img-sm"></div>
+                    <figcaption class="info align-self-center">
+                        <a href="/product={{$similarProduct['id']}}" class="title">{{$similarProduct['product_title']}}</a>
+                        <strong class="price">{{$similarProduct['price']}} L.E</strong>
+                    </figcaption>
+                </figure>
+            </div> <!-- col.// -->
+                @endforeach
+        </div> <!-- row.// -->
+
+    </div>
+
     <!-- reviews modal -->
     <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -195,6 +218,8 @@
             </div>
         </div>
     </div>
+
+
 
     <!-- write review modal -->
     <div class="modal fade" id="writeReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
