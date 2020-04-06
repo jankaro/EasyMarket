@@ -86,7 +86,7 @@ class ProductSimilarity
                         Similarity::minMaxNorm([$productA['price']], 0, $this->priceHighRange),
                         Similarity::minMaxNorm([$productB['price']], 0, $this->priceHighRange)
                     ) * $this->priceWeight),
-                (Similarity::jaccard(Product::find($productA['id'])->categories->title, Product::find($productA['id'])->categories->title) * $this->categoryWeight)
+                (Similarity::jaccard(Product::find($productA['id'])->categories->title, Product::find($productB['id'])->categories->title) * $this->categoryWeight)
             ]) / ($this->featureWeight + $this->priceWeight + $this->categoryWeight);
     }
 }

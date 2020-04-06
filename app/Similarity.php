@@ -16,25 +16,19 @@ class Similarity
 
         $distance = count(array_diff_assoc($str1, $str2));
 
-        if (count($str1) > count($str2)){
-            $i= count(array_diff_assoc($str1, $str2));
-            while(count($str1) >= count($str2)){
-                $str2[]= rand();
-
-            }
-        }
 
         if ($returnDistance) {
 
             $i = 0; $count = 0;
-            while (isset($str1[$i]) != '')
-            {
-                if ($str1[$i] == $str2[$i])
-                    $count++;
-                $i++;
-            }
+           foreach ($str1 as $item1){
+               foreach ($str2 as $item2){
+                   if (soundex($item1) == soundex($item2)){
+                       $count++;
+                   }
+               }
+           }
 
-            return  ($count/$i);
+            return  ($count/count($str2));
         }
         return (count($array1) - $distance) / count($array1);
     }
@@ -61,10 +55,16 @@ class Similarity
         return 1 - $distance;
     }
 
-    public static function jaccard(string $string1, string $string2, string $separator = ','): float
+    public static function jaccard(string $string1, string $string2, string $separator = ' '): float
     {
         $a            = explode($separator, $string1);
         $b            = explode($separator, $string2);
+        if (($key = array_search('&', $a)) !== false) {
+            unset($a[$key]);
+        }
+        if (($key = array_search('&', $b)) !== false) {
+            unset($b[$key]);
+        }
         $intersection = array_unique(array_intersect($a, $b));
         $union        = array_unique(array_merge($a, $b));
 
