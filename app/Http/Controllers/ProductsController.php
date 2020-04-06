@@ -7,6 +7,7 @@ use App\Bid;
 use App\Category;
 use App\Order;
 use App\Product;
+use App\Recommender;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +45,7 @@ class ProductsController extends Controller
             $product->product_picture = $product_picture_path;
         }
         $product->save();
-
+        Recommender::updateSimilarityMatrix();
         return redirect()->route('seller_products');
     }
 
@@ -60,6 +61,7 @@ class ProductsController extends Controller
             $update->product_picture = $picture_path;
         }
         $update->save();
+        Recommender::updateSimilarityMatrix();
         return redirect()->route('seller_products');
     }
 

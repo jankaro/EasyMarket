@@ -9,14 +9,15 @@ class ProductSimilarity
 {
     protected $products       = [];
     protected $featureWeight  = 1;
-    protected $priceWeight    = 1;
+    protected $priceWeight    = 0.5;
     protected $categoryWeight = 1;
     protected $priceHighRange = 1000;
 
     public function __construct(array $products)
     {
        $this->products       = $products;
-        $this->priceHighRange = max(array_column($products, 'price'));
+       $this->priceHighRange = max(array_column($products, 'price'));
+
     }
 
     public function setFeatureWeight(float $weight): void

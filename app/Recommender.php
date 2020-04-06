@@ -8,20 +8,22 @@ use http\Env\Request;
 
 class Recommender
 {
-    public static function similarProducts($products_array, $product_id){
-        $products        = $products_array;
-        $selectedId      = $product_id;
-        $selectedProduct = $products[$product_id-1];
-
-        $selectedProducts = array_filter($products, function ($product) use ($selectedId) { return $product['id'] === $selectedId; });
-        if (count($selectedProducts)) {
-            $selectedProduct = $selectedProducts[array_keys($selectedProducts)[0]];
-        }
-        //dd($selectedProducts);
+    public static function updateSimilarityMatrix(){
+        $products        = Product::all()->toArray();
 
         $productSimilarity = new ProductSimilarity($products);
         $similarityMatrix  = $productSimilarity->calculateSimilarityMatrix();
-        $similarProducts = $productSimilarity->getProductsSortedBySimularity($selectedId, $similarityMatrix);
+        $jsonData = json_encode($similarityMatrix);
+        if (file_put_contents('storage/data/similarityMatrix.json', $jsonData)){
+            return true;
+        }
+        return false;
+    }
+
+    public static function similarProducts($products_array, $product_id){
+        $productSimilarity = new ProductSimilarity($products_array);
+        $similarityMatrix= json_decode(file_get_contents('storage/data/similarityMatrix.json'), true);
+        $similarProducts = $productSimilarity->getProductsSortedBySimularity($product_id, $similarityMatrix);
         return $similarProducts;
     }
 
