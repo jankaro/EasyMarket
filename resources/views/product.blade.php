@@ -47,7 +47,7 @@
                                     @endif
                             </div> <!-- col.// -->
                             @auth
-                                @if(! $product->auctions->isDue())
+                            @if(! $product->auctions->isDue())
                                 <div class="col-7">
                                     <form method="POST" action="/product/auction={{$product->auctions->id}}">
                                         @csrf
@@ -62,7 +62,12 @@
                                     </form>
                                 </div>
                                     @else
-                                    {{$product->auctions->completeOrder()}}
+                                @if(!$product->auctions->completeOrder())
+                                    <div class="col col-12">
+                                            <div class="alert alert-info" role="alert">
+                                                Auction has ended already, but there's many auctions still going on
+                                            </div>
+                                        @endif
                                     @endif
                             @endauth
                             <div class="col col-12">

@@ -22,6 +22,8 @@ class Auction extends Model
     public function isDue(){
         $end_date = \Carbon\Carbon::parse($this->end_date);
         $now = Carbon::now();
+
+       // dd($now <= $end_date);
         if ($now >= $end_date){
             return true;
         }else{
