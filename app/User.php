@@ -57,5 +57,8 @@ public function sellers(){
         return $this->hasMany(Cart::class , 'user_id', 'id');
     }
 
+    public function admins(){
+        return $this->hasOne(Admin::class, 'user_id' , 'id');
+    }
 
 }

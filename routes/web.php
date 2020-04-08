@@ -84,7 +84,8 @@ Route::post('/cart/add-product={id}', 'CartController@create');
 Route::post('/cart/checkout', 'CartController@store');
 
 Route::get('/dev', function (){
-        $products = \App\Recommender::similarProducts(Product::all()->toArray(), 1, 4);
+
+    dd(User::find(1)->admins->users);
 
         return view('test', compact('products'));
 

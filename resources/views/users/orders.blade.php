@@ -19,11 +19,15 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($orders as $order)
+            @foreach($orders->sortByDesc('created_at') as $order)
             <tr>
                 <td>{{$order->id}}</td>
                 <td>{{$order->products->product_title}}</td>
-                <td>{{$order->products->price}}</td>
+                @if($order->products->is_auction)
+                    <td>{{$order->products->auctions->current_price}}</td>
+                @else
+                    <td>{{$order->products->price}}</td>
+                @endif
                 <td>{{$order->products->description}}</td>
                 <td>{{$order->products->categories->title}}</td>
                 <td>{{$order->status}}</td>
