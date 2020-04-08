@@ -35,7 +35,7 @@ class Product extends Model
     }
 
     public function orders(){
-        return $this->hasMany(Order::class , 'id', 'product_id');
+        return $this->hasMany(Order::class , 'product_id', 'id');
     }
 
     public function auctions(){

@@ -2,6 +2,7 @@
 
 @section('content1')
 
+
     <h5 class="doc-title-sm">Shopping cart</h5>
 
     <output>
@@ -34,7 +35,8 @@
                                             <a href="#" class="title text-dark">Your cart is empty</a>
                                         </figcaption>
                                     </figure>
-                                </td>                                @else
+                                </td>
+                            @else
                             @foreach(Auth::user()->carts->where('purchased',false) as $cartIteam)
                             <tr>
                                 <td>

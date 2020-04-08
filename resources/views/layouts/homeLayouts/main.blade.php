@@ -26,6 +26,7 @@
 
     <!-- custom javascript -->
     <script src="{{asset('js/homeScriptCustom.js')}}" type="text/javascript"></script>
+    @yield('auction-js')
 
     <script type="text/javascript">
         /// some script

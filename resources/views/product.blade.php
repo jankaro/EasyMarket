@@ -1,7 +1,12 @@
 @extends('layouts.homeLayouts.main')
 
+
+
 @if($product->is_auction)
-    @section('content1')
+    @section('auction-js')
+        <script src={{asset('js/jquery-countdown/jquery.countdown.js')}}></script>
+      @endsection
+@section('content1')
         <div class="card">
             <div class="row no-gutters">
                 <aside class="col-sm-6 border-right">
@@ -31,13 +36,18 @@
                                     <ul class="list-bullet">
                                         <li><strong>Buy now price:</strong> {{$product->auctions->desired_price}} L.E</li>
                                         <li><strong>Auction starting price:</strong> {{$product->auctions->start_price}} L.E</li>
-                                        <li><strong>Accepting bids till:</strong> {{$product->auctions->end_date}}</li>
+                                        @if($product->auctions->isDue())
+                                        <li><strong>Auction ends in:</strong> <span>Ended on {{$product->auctions->end_date}}</span></li>
+                                            @else
+                                            <li><strong>Auction ends in:</strong> <span data-countdown="{{$product->auctions->end_date}}"></span></li>
+                                        @endif
                                     </ul>
                                     @else
                                 <span class="price h4">{{$product->price}} L.E</span>
                                     @endif
                             </div> <!-- col.// -->
                             @auth
+                                @if(! $product->auctions->isDue())
                                 <div class="col-7">
                                     <form method="POST" action="/product/auction={{$product->auctions->id}}">
                                         @csrf
@@ -51,6 +61,9 @@
                                         </div>
                                     </form>
                                 </div>
+                                    @else
+                                    {{$product->auctions->completeOrder()}}
+                                    @endif
                             @endauth
                             <div class="col col-12">
                                 @if(session()->has('message'))
@@ -68,10 +81,10 @@
                                             <img src="{{asset('storage/'.$bid->users->profile_picture)}}" class="img-xs border">
                                         </td>
                                         <td>
-                                            <p class="title mb-0">Bid Amount </p>
+                                            <p class="title text-sm-left mb-0"><small>Amount</small> </p>
                                             <var class="price text-muted">{{$bid->value}}</var>
                                         </td>
-                                        <td> by: <br>{{$bid->users->name}} </td>
+                                        <td> <small>by:</small> <br>{{$bid->users->name}} </td>
                                         <td width="250"> <p class="text-muted ">{{$bid->created_at}}</p> </td>
                                     </tr>
                                         @endforeach
@@ -257,8 +270,21 @@
             </div>
         </div>
     </div>
-
+    <!--suppress VueDuplicateTag -->
+    <script>
+        $('[data-countdown]').each(function() {
+            var $this = $(this), finalDate = $(this).data('countdown');
+            $this.countdown(finalDate, function(event) {
+                $this.html(event.strftime('%D days %H:%M:%S'));
+            });
+        });
+    </script>
     @endsection
+
+
+
+
+
 
 
 

@@ -11,7 +11,7 @@ class Category extends Model
     }
 
     public function getProducts($category_id){
-        $products = Product::where('category_id', '=', $category_id)->get();
+        $products = Product::where('category_id', '=', $category_id)->where('is_active', true)->get();
         return $products;
     }
 }
