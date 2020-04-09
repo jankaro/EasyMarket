@@ -142,24 +142,34 @@
         data: {
             labels: @yield('sales_array_days'),
             datasets: [{
+                label:'Sales',
                 data: @yield('sales_array_values'),
                 lineTension: 0,
                 backgroundColor: 'transparent',
                 borderColor: '#007bff',
                 borderWidth: 4,
                 pointBackgroundColor: '#007bff'
+            }, {
+                label:'Orders',
+                data: @yield('orders_array_values'),
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#450800',
+                borderWidth: 4,
+                pointBackgroundColor: '#450800'
             }]
         },
         options: {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: false
                     }
                 }]
             },
             legend: {
-                display: false,
+                display: true,
+
             }
         }
     });

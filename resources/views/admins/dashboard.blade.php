@@ -48,7 +48,12 @@
             </div>
         </div>
         </div>
-    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+    <h1 class="h5 text-center">Last week Sales & Orders</h1>
+    <div class="row justify-content-center">
+        <div class="col-9">
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+        </div>
+    </div>
 
 
     @endsection
@@ -71,5 +76,14 @@
     {{$orders->total_sales_chart($orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(2)->toDateString())->get())}},
     {{$orders->total_sales_chart($orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(1)->toDateString())->get())}},
     {{$orders->total_sales_chart($orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(0)->toDateString())->get())}}]
-    @endsection
+@endsection
+@section('orders_array_values')
+    [{{$orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(6)->toDateString())->count()}},
+    {{$orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(5)->toDateString())->count()}},
+    {{$orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(4)->toDateString())->count()}},
+    {{$orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(3)->toDateString())->count()}},
+    {{$orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(2)->toDateString())->count()}},
+    {{$orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(1)->toDateString())->count()}},
+    {{$orders->whereDate('created_at','=', \Carbon\Carbon::today()->subDays(0)->toDateString())->count()}}]
+@endsection
 
