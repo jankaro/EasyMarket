@@ -17,6 +17,8 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
+
 </head>
 
 <body>
@@ -62,7 +64,8 @@
                             Payments
                         </a>
                     </li>
-                    @if($currentUser->is_seller)
+
+                    @if(\Illuminate\Support\Facades\Auth::user()->is_seller)
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>Sellers Management</span>
                             <a class="d-flex align-items-center text-muted" href="{{route('seller_auth')}}">
@@ -137,9 +140,9 @@
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            labels: @yield('sales_array_days'),
             datasets: [{
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                data: @yield('sales_array_values'),
                 lineTension: 0,
                 backgroundColor: 'transparent',
                 borderColor: '#007bff',
@@ -151,7 +154,7 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: false
+                        beginAtZero: true
                     }
                 }]
             },

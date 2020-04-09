@@ -83,6 +83,8 @@ Route::post('/cart={id}', 'CartController@destroy');
 Route::post('/cart/add-product={id}', 'CartController@create');
 Route::post('/cart/checkout', 'CartController@store');
 
+Route::get('/admins/dashboard', 'AdminController@index')->name('admins_dashboard');
+
 Route::get('/dev', function (){
 
     dd(User::find(1)->admins->users);
