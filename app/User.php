@@ -50,7 +50,7 @@ public function payments(){
 }
 
 public function sellers(){
-    return $this->hasOne(Seller::class);
+    return $this->hasOne(Seller::class , 'user_id', 'id');
 }
 
     public function carts(){

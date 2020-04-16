@@ -28,4 +28,26 @@ class AdminController extends Controller
 
         return view('admins.dashboard')->with(['orders'=>$this->orders, 'products'=>$this->products, 'sellers'=>$this->sellers]);
     }
+
+    public function usersIndex(){
+
+        return view('admins.usersMgmt')->with(['sellers'=>$this->sellers]);
+    }
+
+    public function sellerStatus(Request $request){
+        $seller = Seller::find($request->input('sellerID'));
+        if ($request->input('status') === 'approved'){
+            $seller->status = $request->input('status');
+            $seller->save();
+            $seller->users->is_seller=true;
+            $seller->users->save();
+        } else{
+            $seller->status = $request->input('status');
+            $seller->save();
+            $seller->users->is_seller=false;
+            $seller->users->save();
+        }
+
+        return redirect()->back();
+    }
 }

@@ -142,7 +142,7 @@
         data: {
             labels: @yield('sales_array_days'),
             datasets: [{
-                label:'Sales',
+                label:'Sales EGP',
                 data: @yield('sales_array_values'),
                 lineTension: 0,
                 backgroundColor: 'transparent',
@@ -150,7 +150,7 @@
                 borderWidth: 4,
                 pointBackgroundColor: '#007bff'
             }, {
-                label:'Orders',
+                label:'Orders #',
                 data: @yield('orders_array_values'),
                 lineTension: 0,
                 backgroundColor: 'transparent',

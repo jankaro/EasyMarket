@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="row justify-content-center mt-3">
-        <div class="col col-9">
+        <div class="col col-8">
             <div class="form-group">
                 <label>Full-name:</label>
                 <input class="form-control mb-3" name="seller_name" type="text" value="{{$seller_info->seller_name}}" disabled >

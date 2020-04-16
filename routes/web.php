@@ -84,6 +84,8 @@ Route::post('/cart/add-product={id}', 'CartController@create');
 Route::post('/cart/checkout', 'CartController@store');
 
 Route::get('/admins/dashboard', 'AdminController@index')->name('admins_dashboard');
+Route::get('/admins/sellers', 'AdminController@usersIndex')->name('users_index');
+Route::post('/admins/sellers/update', 'AdminController@sellerStatus')->name('seller_status');
 
 Route::get('/dev', function (){
 
