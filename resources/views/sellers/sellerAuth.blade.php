@@ -7,14 +7,16 @@
 @section('pageTitle')
 
     Seller's Authentication form
-    @if(!$currentUser->is_seller)
+    @if($currentUser->sellers == null)
         <h6>Please fill the required information to be authenticated</h6>
+    @elseif($currentUser->sellers->status === 'approved')
+    <h6>You can now start posting products! Good Luck</h6>
     @else
-    <h6>Your information is being reviewed by Easy Market team, you can't edit your information at this stage</h6>
+        <h6>Your information is being reviewed by Easy Market team, you can't edit your information at this stage</h6>
     @endif
 @endsection
 
-@if(!$currentUser->is_seller)
+@if($currentUser->sellers == null)
 @section('content')
     <div class="row justify-content-center">
         <div class="col col-6 ">
@@ -55,6 +57,7 @@
                 <input class="form-control mb-3" name="seller_name" type="text" value="{{$seller_info->seller_name}}" disabled >
                 <label>Seller id</label>
                 <input type="text" name="seller_id" class="form-control mb-3" value="{{$seller_info->id }}" disabled>
+                <h5 class="text-capitalize"><strong>Status:</strong> {{$seller_info->status}}</h5>
             </div>
         </div>
     </div>

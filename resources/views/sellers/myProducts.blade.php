@@ -32,7 +32,9 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($products_info as $product)
+
+            @if(null != $products_info->first())
+            @foreach($products_info->sortByDesc('created_at') as $product)
                 <tr>
                     <td>
                         <img src="{{asset('storage/'.$product->product_picture)}}" style="width: 50px; height: 50px; border-radius: 50%; ">
@@ -81,6 +83,7 @@
                     </td>
                 </tr>
             @endforeach
+                @endif
             </tbody>
         </table>
     </div>
@@ -118,81 +121,84 @@
 
 @endsection
 
-<!-- update product modal -->
-<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update product information</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="/profile/seller/update-product" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" id="product_id" name="product_id">
-                    <div class="form-group">
-                        <label>Product title:</label>
-                        <input class="form-control mb-3" id="product_title" name="product_title" type="text" value="{{$product->product_title}}">
-                        <label>Product Description:</label>
-                        <textarea class="form-control mb-3" id="description" name="description" type="text"></textarea>
-                        <label>Product Price:</label>
-                        <input class="form-control mb-3" id="price" name="price" type="text" value="{{$product->description}}">
-                        <label>change picture of the product</label>
-                        <input type="file" name="product_picture" class="form-control-file border mb-3">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- add product modal -->
-<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update product information</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="/profile/seller/add-product={{$currentUser->id}}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label>Product title:</label>
-                        <input class="form-control mb-3" name="product_title" type="text" placeholder="Please write a clear name that describe your product">
-                        <label>Product Description:</label>
-                        <input class="form-control mb-3" name="description" type="text" placeholder="Please enter all the specs of your product">
-                        <label>Product Price:</label>
-                        <input class="form-control mb-3" name="price" type="text" placeholder="please enter the starting price">
+@if($products_info->first() != null)
+    <!-- update product modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update product information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="/profile/seller/update-product" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" id="product_id" name="product_id">
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Product category</label>
-                            <select class="form-control" name="category_id">
-                                <option disabled selected>Please select category</option>
-                                @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->title}}</option>
-                                @endforeach
-                            </select>
+                            <label>Product title:</label>
+                            <input class="form-control mb-3" id="product_title" name="product_title" type="text" value="{{$product->product_title}}">
+                            <label>Product Description:</label>
+                            <textarea class="form-control mb-3" id="description" name="description" type="text"></textarea>
+                            <label>Product Price:</label>
+                            <input class="form-control mb-3" id="price" name="price" type="text" value="{{$product->description}}">
+                            <label>change picture of the product</label>
+                            <input type="file" name="product_picture" class="form-control-file border mb-3">
                         </div>
-                        <label>Upload picture of the product</label>
-                        <input type="file" name="product_picture" class="form-control-file border mb-3">
-                    </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
-</div>
-</div>
+@endif
+
+    <!-- add product modal -->
+    <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update product information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="/profile/seller/add-product={{$currentUser->id}}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label>Product title:</label>
+                            <input class="form-control mb-3" name="product_title" type="text" placeholder="Please write a clear name that describe your product">
+                            <label>Product Description:</label>
+                            <input class="form-control mb-3" name="description" type="text" placeholder="Please enter all the specs of your product">
+                            <label>Product Price:</label>
+                            <input class="form-control mb-3" name="price" type="text" placeholder="please enter the starting price">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Product category</label>
+                                <select class="form-control" name="category_id">
+                                    <option disabled selected>Please select category</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->title}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <label>Upload picture of the product</label>
+                            <input type="file" name="product_picture" class="form-control-file border mb-3">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 <!-- Add auction modal -->

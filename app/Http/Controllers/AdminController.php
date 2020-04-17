@@ -41,11 +41,17 @@ class AdminController extends Controller
             $seller->save();
             $seller->users->is_seller=true;
             $seller->users->save();
-        } else{
+        } elseif ($request->input('status') === 'pending' || $request->input('status') === 'deactivated'){
             $seller->status = $request->input('status');
             $seller->save();
             $seller->users->is_seller=false;
             $seller->users->save();
+        }else{
+            $seller->status = $request->input('status');
+            $seller->save();
+            $seller->users->is_seller=false;
+            $seller->users->save();
+            $seller->destroy($seller->id);
         }
 
         return redirect()->back();

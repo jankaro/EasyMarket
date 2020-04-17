@@ -158,7 +158,7 @@ class UserController extends Controller
         $seller->national_id= $national_id_path;
         $seller->save();
 
-        $currentUser->is_seller = true; // till the configuration of sellers approve
+        //$currentUser->is_seller = true; // till the configuration of sellers approve
         $currentUser->save();
 
         return redirect()->back();
