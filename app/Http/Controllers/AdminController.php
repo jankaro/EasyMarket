@@ -19,7 +19,7 @@ class AdminController extends Controller
     {
 
         $this->orders = new Order();
-        $this->products= new Product();
+        $this->products= Product::all();
         $this->sellers = new Seller;
     }
 
@@ -54,6 +54,19 @@ class AdminController extends Controller
             $seller->destroy($seller->id);
         }
 
+        return redirect()->back();
+    }
+
+    public function productsIndex(){
+
+
+        return view('admins.productsMgmt')->with(['products_info' => $this->products]);
+    }
+
+    public function removeProduct($product_id){
+        if (Auth::user()->admins->exists){
+            Product::destroy($product_id);
+        }
         return redirect()->back();
     }
 }

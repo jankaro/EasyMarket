@@ -60,9 +60,14 @@ class ProductsController extends Controller
             $picture_path = $request->file('product_picture')->store('assets/products_pictures', 'public');
             $update->product_picture = $picture_path;
         }
+        if ($request->input('status') == 1){
+            $update->is_active = true;
+        } elseif ($request->input('status') == 0) {
+            $update->is_active = false;
+        }
         $update->save();
         Recommender::updateSimilarityMatrix();
-        return redirect()->route('seller_products');
+        return redirect()->back();
     }
 
     public function showOrders(){

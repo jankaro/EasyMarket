@@ -86,6 +86,9 @@ Route::post('/cart/checkout', 'CartController@store');
 Route::get('/admins/dashboard', 'AdminController@index')->name('admins_dashboard');
 Route::get('/admins/sellers', 'AdminController@usersIndex')->name('users_index');
 Route::post('/admins/sellers/update', 'AdminController@sellerStatus')->name('seller_status');
+Route::get('/admins/products', 'AdminController@productsIndex')->name('products_index');
+Route::get('/remove-product={product_id}', 'AdminController@removeProduct');
+
 
 Route::get('/dev', function (){
 

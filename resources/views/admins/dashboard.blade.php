@@ -58,36 +58,6 @@
 
     @endsection
 
-@section('sidebarItems')
-    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-        <span>Administration section</span>
-        <a class="d-flex align-items-center text-muted" href="{{route('admins_dashboard')}}">
-            <span data-feather="user"></span>
-        </a>
-    </h6>
-    <ul class="nav flex-column mb-2">
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('admins_dashboard')}}">
-                <span data-feather="home"></span>
-                Admin Dashboard
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('admins_dashboard')}}">
-                <span data-feather="home"></span>
-                Products Management
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('admins_dashboard')}}">
-                <span data-feather="home"></span>
-                Sellers Management
-            </a>
-        </li>
-    </ul>
-    @endsection
-
-
 
 
 @section('sales_array_days')
