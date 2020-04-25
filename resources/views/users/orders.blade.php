@@ -28,7 +28,7 @@
                 @else
                     <td>{{$order->products->price}}</td>
                 @endif
-                <td>{{$order->products->description}}</td>
+                <td>{{substr($order->products->description,0,30)}} ...</td>
                 <td>{{$order->products->categories->title}}</td>
                 <td>{{$order->status}}</td>
                 <td>{{$order->created_at}}</td>

@@ -30,7 +30,7 @@
                     @else
                         <td>{{$order->products->price}}</td>
                     @endif
-                    <td>{{$order->products->description}}</td>
+                    <td>{{substr($order->products->description,0,30)}} ...</td>
                     <td>{{$order->products->categories->title}}</td>
                     <td>{{$order->status}}</td>
                     <td>{{$order->created_at}}</td>
@@ -41,7 +41,7 @@
                                         data-title="{{$order->products->product_title}}"
                                         data-toggle="modal"
                                         data-target="#statusModal"
-                                        data-orderId="{{$order->id}}">
+                                        data-id_order="{{$order->id}}">
                                     <span data-feather="edit"></span>
                                     </button>
                             </div>
@@ -60,7 +60,7 @@
 
         $('#statusModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
-            var order_id = button.data('orderid')
+            var order_id = button.data('id_order')
             var title = button.data('title')
             // Extract info from data-* attributes
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).

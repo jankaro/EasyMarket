@@ -177,7 +177,7 @@
             <div class="shadow-sm card-banner">
                 <div class="p-4" style="width:75%">
                         <h5 class="card-title">{{$rate->users->name}}</h5>
-                    <p>{{$rate->feedback}}</p>
+                    <p>{{substr($rate->feedback, 0 , 30)}} ...</p>
                 </div>
                 <img src="{{asset('storage/'.$rate->users->profile_picture)}}" height="150" style="border-radius: 50%" class="img-sm align-self-center">
             </div>
@@ -254,7 +254,7 @@
                         @csrf
                     <div class="form-group">
                         <div class="form-group">
-                            <select class="form-control" name="value">
+                            <select class="form-control" name="value" required>
                                 <option selected disabled>Choose rate</option>
                                 <option value="5">Excellent</option>
                                 <option value="4">Very Good</option>
@@ -264,7 +264,7 @@
                                 <option value="0">Very bad</option>
                             </select>
                         </div>
-                        <textarea type="text" name="feedback" placeholder="Please write an honest feedback about the product" class="form-control" ></textarea>
+                        <textarea type="text" name="feedback" placeholder="Please write an honest feedback about the product" class="form-control" required ></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

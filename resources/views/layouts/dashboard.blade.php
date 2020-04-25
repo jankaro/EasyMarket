@@ -98,7 +98,7 @@
                                 </a>
                             </li>
                             @endif
-                            @if(\Illuminate\Support\Facades\Auth::user()->admins->exists)
+                            @if(\Illuminate\Support\Facades\Auth::user()->admins->exists ?? false)
                             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                                 <span>Administration section</span>
                                 <a class="d-flex align-items-center text-muted" href="{{route('admins_dashboard')}}">

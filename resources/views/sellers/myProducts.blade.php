@@ -42,7 +42,7 @@
                     <td>{{$product->id}}</td>
                     <td>{{$product->product_title}}</td>
                     <td>{{$product->price}}</td>
-                    <td>{{$product->description}}</td>
+                    <td>{{substr($product->description,0,30)}} ...</td>
                     <td>{{$product->categories->title}}</td>
                     <td>
                         @if($product->is_active)
@@ -138,11 +138,11 @@
                         <input type="hidden" id="product_id" name="product_id">
                         <div class="form-group">
                             <label>Product title:</label>
-                            <input class="form-control mb-3" id="product_title" name="product_title" type="text" value="{{$product->product_title}}">
+                            <input class="form-control mb-3" id="product_title" name="product_title" type="text" value="{{$product->product_title}} " required>
                             <label>Product Description:</label>
-                            <textarea class="form-control mb-3" id="description" name="description" type="text"></textarea>
+                            <textarea class="form-control mb-3" id="description" name="description" type="text" required></textarea>
                             <label>Product Price:</label>
-                            <input class="form-control mb-3" id="price" name="price" type="text" value="{{$product->description}}">
+                            <input class="form-control mb-3" id="price" name="price" type="text" value="{{$product->description}}" required>
                             <label>change picture of the product</label>
                             <input type="file" name="product_picture" class="form-control-file border mb-3">
                         </div>
@@ -162,7 +162,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update product information</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add new product</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -172,14 +172,14 @@
                         @csrf
                         <div class="form-group">
                             <label>Product title:</label>
-                            <input class="form-control mb-3" name="product_title" type="text" placeholder="Please write a clear name that describe your product">
+                            <input class="form-control mb-3" name="product_title" type="text" placeholder="Please write a clear name that describe your product" required>
                             <label>Product Description:</label>
-                            <input class="form-control mb-3" name="description" type="text" placeholder="Please enter all the specs of your product">
+                            <textarea class="form-control mb-3" name="description" type="text" placeholder="Please enter all the specs of your product" required></textarea>
                             <label>Product Price:</label>
-                            <input class="form-control mb-3" name="price" type="text" placeholder="please enter the starting price">
+                            <input class="form-control mb-3" name="price" type="text" placeholder="please enter the starting price" required>
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Product category</label>
-                                <select class="form-control" name="category_id">
+                                <select class="form-control" name="category_id" required>
                                     <option disabled selected>Please select category</option>
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}">{{$category->title}}</option>
@@ -187,7 +187,7 @@
                                 </select>
                             </div>
                             <label>Upload picture of the product</label>
-                            <input type="file" name="product_picture" class="form-control-file border mb-3">
+                            <input type="file" name="product_picture" class="form-control-file border mb-3" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -217,11 +217,11 @@
                     <input type="hidden" id="product_id" name="product_id">
                     <div class="form-group">
                         <label>Starting Price:</label>
-                        <input class="form-control mb-3" id="start_price" name="start_price" type="text" >
+                        <input class="form-control mb-3" id="start_price" name="start_price" type="text" required>
                         <label>Buy Now Price:</label>
-                        <input class="form-control mb-3" id="desired_price" name="desired_price" type="text">
+                        <input class="form-control mb-3" id="desired_price" name="desired_price" type="text" required>
                         <label>Auction End-Date:</label>
-                        <input class="form-control mb-3" id="end_date" name="end_date" type="datetime-local">
+                        <input class="form-control mb-3" id="end_date" name="end_date" type="datetime-local" required>
                         <label class="form-check-label text-muted">* All prices must be in Egyptian Pound</label>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" required>

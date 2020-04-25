@@ -30,17 +30,17 @@
                 @csrf
                 <div class="form-group">
                     <label>Name:</label>
-                    <input class="form-control mb-3" name="name" type="text" value="{{$currentUser->name}}">
+                    <input class="form-control mb-3" name="name" type="text" value="{{$currentUser->name}}" required>
                     <label>Email:</label>
-                    <input class="form-control mb-3" name="email" type="email" value="{{$currentUser->email}}">
+                    <input class="form-control mb-3" name="email" type="email" value="{{$currentUser->email}}" required>
                     <label>Mobile number:</label>
-                    <input class="form-control mb-3" name="phone_number" type="text" value="{{$currentUser->phone_number}}" placeholder='Please add your mobile number'>
+                    <input class="form-control mb-3" name="phone_number" type="text" value="{{$currentUser->phone_number}}" required placeholder='Please enter your mobile number'>
                     <label>Address:</label>
-                    <input class="form-control mb-3" name="address" type="text" value="{{$currentUser->address}}" placeholder="Please add your address">
+                    <input class="form-control mb-3" name="address" type="text" value="{{$currentUser->address}}" placeholder="Please enter your address" required>
                     <label>Password:</label>
                     <input class="form-control mb-3" name="password" type="password" placeholder="Write your new password here, if you wish to change it">
                     <label>Upload new profile picture:</label>
-                    <input type="file" name="profile_picture" class="form-control-file border mb-3">
+                    <input type="file" name="profile_picture" class="form-control-file border mb-3" required>
                     <button type="submit" class="btn btn-success btn-block">save</button>
                 </div>
             </form>
@@ -55,13 +55,13 @@
                 @csrf
                 <div class="form-group">
                     <label>Name on card:</label>
-                    <input class="form-control mb-3" name="card_name" type="text" value="{{$payment_info->card_name ?? ''}}">
+                    <input class="form-control mb-3" name="card_name" type="text" value="{{$payment_info->card_name ?? ''}}" required>
                     <label>Card Number:</label>
-                    <input class="form-control mb-3" name="card_number" type="text" value="{{$payment_info->card_number ?? ''}}">
+                    <input class="form-control mb-3" name="card_number" type="text" value="{{$payment_info->card_number ?? ''}}" required>
                     <label>Expiration month:</label>
-                    <input class="form-control mb-3" name="expiration_month" type="text" value="{{$payment_info->expiration_month ?? ''}}" placeholder='Please add your mobile number'>
+                    <input class="form-control mb-3" name="expiration_month" type="text" value="{{$payment_info->expiration_month ?? ''}}" placeholder='expiration month' required>
                     <label>Expiration year:</label>
-                    <input class="form-control mb-3" name="expiration_year" type="text" value="{{$payment_info->expiration_year ?? ''}}" placeholder="Please add your address">
+                    <input class="form-control mb-3" name="expiration_year" type="text" value="{{$payment_info->expiration_year ?? ''}}" placeholder="expiration year" required>
                     <label>Security code (CVV):</label>
                     <input class="form-control mb-3" name="cvv" type="password" placeholder="Write your new cvv here, if you wish to change it" required>
                     <button type="submit" class="btn btn-success btn-block">@if(isset($payment_info->cvv)) Save changes @else Add Card @endif</button>

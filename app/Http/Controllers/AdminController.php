@@ -64,7 +64,7 @@ class AdminController extends Controller
     }
 
     public function removeProduct($product_id){
-        if (Auth::user()->admins->exists){
+        if (Auth::user()->admins->exists ?? false){
             Product::destroy($product_id);
         }
         return redirect()->back();
