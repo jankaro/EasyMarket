@@ -1,5 +1,6 @@
 @extends('layouts.homeLayouts.main')
 
+@section('title',$product->product_title)
 
 
 @if($product->is_auction)

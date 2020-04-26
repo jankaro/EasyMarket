@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>@yield('title', 'Easy Market Dashboard')</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
 
@@ -72,13 +72,6 @@
                                 <span data-feather="user"></span>
                             </a>
                         </h6>
-                        <ul class="nav flex-column mb-2">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('products_index')}}">
-                                    <span data-feather="plus-circle"></span>
-                                    Add product
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('seller_products')}}">
                                     <span data-feather="file-text"></span>
@@ -200,6 +193,7 @@
             }
         }
     });
+
 </script>
 
 @yield('javascript')

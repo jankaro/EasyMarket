@@ -1,4 +1,5 @@
 @extends('layouts.homeLayouts.main')
+@section('title','Easy Market - Shopping Cart')
 
 @section('content1')
 

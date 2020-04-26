@@ -132,6 +132,11 @@ class ProductsController extends Controller
              return redirect()->back()->with(['type'=>'info', 'message'=>'You have to add payment method from your profile first!']);
         }
 
-
+    }
+    public function search(Request $request){
+        $query = $request->input('query');
+        $products = Product::where('product_title','like', "%$query%")->get();
+        $categories = Category::all();
+        return view('search-results', compact('products','categories'));
     }
 }

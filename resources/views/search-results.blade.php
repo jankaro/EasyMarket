@@ -1,12 +1,12 @@
 @extends('layouts.homeLayouts.main')
 
-@section('title','Easy Market: '.$category->title)
+@section('title','Results of: '.request()->input('query'))
 
 @section('content1')
     <!-- ========================= SECTION PAGETOP ========================= -->
     <section class="section-pagetop bg">
         <div class="container">
-            <h2 class="title-page">{{$category->title}}</h2>
+            <h2 class="title-page"> Search results for: {{request()->input('query')}}</h2>
         </div> <!-- container //  -->
     </section>
     <!-- ========================= SECTION INTRO END// ========================= -->
@@ -180,7 +180,7 @@
 
                     <header class="border-bottom mb-4 pb-3">
                         <div class="form-inline">
-                            <span class="mr-md-auto">{{$category->getProducts($category->id)->count()}} Items found </span>
+                            <span class="mr-md-auto">{{$products->count()}} Items found </span>
                             <select class="mr-2 form-control">
                                 <option>Latest items</option>
                                 <option>Trending</option>
@@ -198,12 +198,12 @@
 
 
 
-        @if($category->getProducts($category->id)->first() == null)
+        @if($products->first() == null)
             <div class="col-md-9">
             No products available in this category
             </div>
         @else
-        @foreach($category->getProducts($category->id) as $product)
+        @foreach($products as $product)
                 <article class="card card-product-list">
                     <div class="row no-gutters">
                         <aside class="col-md-3">

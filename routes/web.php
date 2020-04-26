@@ -88,6 +88,7 @@ Route::get('/admins/sellers', 'AdminController@usersIndex')->name('users_index')
 Route::post('/admins/sellers/update', 'AdminController@sellerStatus')->name('seller_status');
 Route::get('/admins/products', 'AdminController@productsIndex')->name('products_index');
 Route::get('/remove-product={product_id}', 'AdminController@removeProduct');
+Route::post('/search', 'ProductsController@search');
 
 
 Route::get('/dev', function (){
