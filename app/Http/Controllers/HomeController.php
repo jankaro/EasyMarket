@@ -34,6 +34,7 @@ class HomeController extends Controller
         return view('homeTest', ['users'=> $users]);
     }
 
+    // Store new Product
     public function store(Request $request)
     {
         Product::create([
@@ -47,12 +48,14 @@ class HomeController extends Controller
         return redirect()->action('HomeController@index');
     }
 
+    // fetch and display products by Category
     public function byCategory($id){
         $category= Category::find($id);
         $categories = Category::all();
         return view('category' , compact('category' , 'categories'));
     }
 
+    // Fetch and display Product information
     public function showProduct($id){
         $product = Product::find($id);
         $categories = Category::all();

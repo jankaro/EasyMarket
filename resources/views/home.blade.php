@@ -17,7 +17,7 @@
                 </aside> <!-- col.// -->
                 <div class="col-md-9">
                     <article class="banner-wrap">
-                        <img src="https://via.placeholder.com/1000x300" class="w-100 rounded">
+                        <img src="{{asset('/storage/assets/cover.png')}}" class="w-100 rounded">
                     </article>
                 </div> <!-- col.// -->
             </div> <!-- row.// -->

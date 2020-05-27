@@ -157,8 +157,6 @@
     <header class="section-heading">
         @if($product->rates->count() == 0)
             <h3 class="section-title">There's no reviews for this product, so far!</h3>
-            <a href="#" class="btn btn-outline-success float-right" data-toggle="modal"
-               data-target="#writeReviewModal" >Write a review</a>
         @else
             @auth
         <a href="#" class="btn btn-outline-success float-right" data-toggle="modal"

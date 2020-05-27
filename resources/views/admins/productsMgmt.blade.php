@@ -39,7 +39,7 @@
                             <img src="{{asset('storage/'.$product->product_picture)}}" style="width: 50px; height: 50px; border-radius: 50%; ">
                         </td>
                         <td>{{$product->id}}</td>
-                        <td>{{$product->product_title}}</td>
+                        <td>{{ substr($product->product_title,0,40)}}...</td>
                         <td>{{$product->price}}</td>
                         <td>{{substr($product->description,0,30)}}...</td>
                         <td>{{$product->categories->title}}</td>
@@ -50,7 +50,7 @@
                                 Not active
                             @endif
                         </td>
-                        <td>{{\Carbon\Carbon::parse($product->created_at)->toDayDateTimeString()}}</td>
+                        <td>{{substr(\Carbon\Carbon::parse($product->created_at)->toDayDateTimeString(),0,30)}}</td>
                         <td>
                             <div class="row">
                                 <div class="col-1 d-flex">
